@@ -1,0 +1,11 @@
+autograd
+cvxgraphalgs
+cvxpy
+matplotlib
+networkx
+numpy
+pandas
+pennylane
+rsmf
+seaborn
+tqdm
