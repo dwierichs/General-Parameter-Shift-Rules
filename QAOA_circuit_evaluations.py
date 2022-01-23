@@ -19,13 +19,13 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 import seaborn as sns
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 
 import lib
 
 # + tags=[]
 # Set whether to use precomputed data
-reuse_data = False
+reuse_data = True
 
 # Set the number of how often the random projection in the Goemans-Williamson algorithm is performed
 # to obtain a valid cut.
