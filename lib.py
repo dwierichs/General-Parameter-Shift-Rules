@@ -25,8 +25,6 @@ import cvxpy as cp
 import cvxgraphalgs as cvxgr  # For Goemans-Williamson implementation
 import networkx as nx
 
-from sinc_autograd import sinc
-
 # The following signs are used to compute the coefficients
 # E_D, E_E, E_F, and E_G for the extended QAD model.
 signs_coeffs_extended_QAD_model = np.array(
@@ -328,16 +326,12 @@ def build_qad_model(fun, params):
     return model
 
 
-def trig_interpolation_qad(fun, params, R, extended=False):
+def trig_interpolation_qad(fun, params, R):
     r"""Query a function and construct a model function based on trigonometric interpolation.
     Args:
         fun (callable): Original cost function to be modelled.
         params (array[float]): Parameter position at which to model ``fun``.
         R (array[int]): Number of frequencies to assume (per parameter).
-        extended (bool): Whether to add the third- and fourth-order
-            terms that are available through the (conventional) evaluations for the Hessian.
-            Originally, this had no additional cost but due to the cheaper Hessian, it
-            now does.
     Returns:
         callable: Model cost function for ``fun``.
     Comments:
@@ -359,7 +353,7 @@ def trig_interpolation_qad(fun, params, R, extended=False):
 
     idx_pairs_hessian = list(combinations(list(range(num_params)), 2))
 
-    f = lambda x, N, l: sinc(N / 2 * x - l * np.pi) / sinc(0.5 * x - l / N * np.pi)
+    f = lambda x, N, l: np.sinc(N / (2 * np.pi) * x - l) / np.sinc(x / (2 * np.pi) - l / N)
     g = lambda x, N, l: f(x, N, l) * np.cos(0.5 * x - l / N * np.pi)
 
     for k, m in idx_pairs_hessian:
