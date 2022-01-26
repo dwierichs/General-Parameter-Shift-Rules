@@ -21,7 +21,7 @@ All functionalities and helper functions are stored in `lib.py`.
 
 If you use this code, please consider citing the paper if applicable:
 
-```
+```bib
 @misc{wierichs2021general,
       title={General parameter-shift rules for quantum gradients}, 
       author={David Wierichs and Josh Izaac and Cody Wang and Cedric Yen-Yu Lin},
